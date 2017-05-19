@@ -27,6 +27,7 @@ LABEL gocd.version="17.4.0" \
   gocd.git.sha="ab17b819e73477a47401744fa64f64fda55c26e8"
 
 ADD "https://download.gocd.io/experimental/binaries/17.4.0-4892/generic/go-agent-17.4.0-4892.zip" /tmp/go-agent.zip
+ADD "http://mirrors.hust.edu.cn/apache/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.zip" /tmp/apache-maven-3.5.0-bin.zip
 ADD https://github.com/krallin/tini/releases/download/v0.14.0/tini-static-amd64 /usr/local/sbin/tini
 ADD https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64 /usr/local/sbin/gosu
 
@@ -49,12 +50,19 @@ RUN \
   echo deb 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu xenial main' > /etc/apt/sources.list.d/openjdk-ppa.list && \ 
   apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DA1A4A13543B466853BAF164EB9B1D8886F44E2A && \ 
   apt-get update && \ 
-  apt-get install -y openjdk-8-jre-headless git subversion mercurial openssh-client bash unzip && \ 
+  apt-get install -y openjdk-8-jre-headless git subversion mercurial openssh-client bash unzip wget && \ 
   apt-get autoclean && \
 # unzip the zip file into /go-agent, after stripping the first path prefix
   unzip /tmp/go-agent.zip -d / && \
   mv go-agent-17.4.0 /go-agent && \
-  rm /tmp/go-agent.zip
+  rm /tmp/go-agent.zip && \
+  unzip /tmp/apache-maven-3.5.0-bin.zip -d /tmp/ && \
+  mv /tmp/apache-maven-3.5.0 /usr/lib/mvn
+  
+
+ENV M2_HOME=/usr/lib/mvn
+ENV M2=$M2_HOME/bin
+ENV PATH $PATH:$$M2_HOME:$M2
 
 ADD docker-entrypoint.sh /
 
