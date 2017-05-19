@@ -26,7 +26,7 @@ LABEL gocd.version="17.4.0" \
   gocd.full.version="17.4.0-4892" \
   gocd.git.sha="ab17b819e73477a47401744fa64f64fda55c26e8"
 
-ADD "https://download.gocd.io/experimental/binaries/17.4.0-4892/generic/go-agent-17.4.0-4892.zip" /tmp/go-agent.zip
+ADD "https://download.gocd.io/binaries/17.4.0-4892/generic/go-agent-17.4.0-4892.zip" /tmp/go-agent.zip
 ADD "http://mirrors.hust.edu.cn/apache/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.zip" /tmp/apache-maven-3.5.0-bin.zip
 ADD https://github.com/krallin/tini/releases/download/v0.14.0/tini-static-amd64 /usr/local/sbin/tini
 ADD https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64 /usr/local/sbin/gosu
