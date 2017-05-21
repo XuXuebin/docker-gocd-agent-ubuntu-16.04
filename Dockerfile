@@ -37,6 +37,7 @@ VOLUME /godata
 
 # force encoding
 ENV LANG=en_US.utf8
+RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
 RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" \
     | tee /etc/apt/sources.list.d/webupd8team-java.list
 RUN echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" \
