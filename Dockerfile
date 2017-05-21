@@ -30,6 +30,7 @@ ADD "https://download.gocd.io/binaries/17.4.0-4892/generic/go-agent-17.4.0-4892.
 ADD "http://mirrors.hust.edu.cn/apache/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.zip" /tmp/apache-maven-3.5.0-bin.zip
 ADD tini-static-amd64 /usr/local/sbin/tini
 ADD gosu-amd64 /usr/local/sbin/gosu
+ADD sources.list /etc/apt/sources.list
 
 # allow mounting ssh keys, dotfiles, and the go server config and data
 VOLUME /godata
@@ -59,10 +60,10 @@ RUN \
   unzip /tmp/apache-maven-3.5.0-bin.zip -d /tmp/ && \
   mv /tmp/apache-maven-3.5.0 /usr/lib/mvn
   
-
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ENV M2_HOME=/usr/lib/mvn
 ENV M2=$M2_HOME/bin
-ENV PATH $PATH:$$M2_HOME:$M2
+ENV PATH=$PATH:$JAVA_HOME/bin:$M2_HOME:$M2
 
 ADD docker-entrypoint.sh /
 
