@@ -37,6 +37,12 @@ VOLUME /godata
 
 # force encoding
 ENV LANG=en_US.utf8
+RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" \
+    | tee /etc/apt/sources.list.d/webupd8team-java.list
+RUN echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" \
+    | tee -a /etc/apt/sources.list.d/webupd8team-java.list
+
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
 
 RUN \
 # add mode and permissions for files we added above
@@ -48,7 +54,6 @@ RUN \
 # regardless of whatever dependencies get added
   groupadd -g 1000 go && \ 
   useradd -u 1000 -g go -d /home/go -m go && \
-  add-apt-repository -y ppa:webupd8team/java && \ 
   apt-get update && \ 
   apt-get install -y oracle-java8-installer git subversion mercurial openssh-client bash unzip wget && \ 
   apt-get autoclean && \
