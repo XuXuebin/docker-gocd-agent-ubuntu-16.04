@@ -51,7 +51,7 @@ RUN \
   echo deb 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu xenial main' > /etc/apt/sources.list.d/openjdk-ppa.list && \ 
   apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DA1A4A13543B466853BAF164EB9B1D8886F44E2A && \ 
   apt-get update && \ 
-  apt-get install -y openjdk-8-jdk-headless git subversion mercurial openssh-client bash unzip wget && \ 
+  apt-get install -y openjdk-8-jdk git subversion mercurial openssh-client bash unzip wget && \ 
   apt-get autoclean && \
 # unzip the zip file into /go-agent, after stripping the first path prefix
   unzip /tmp/go-agent.zip -d / && \
