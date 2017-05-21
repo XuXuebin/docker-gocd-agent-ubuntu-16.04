@@ -48,10 +48,9 @@ RUN \
 # regardless of whatever dependencies get added
   groupadd -g 1000 go && \ 
   useradd -u 1000 -g go -d /home/go -m go && \
-  echo deb 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu xenial main' > /etc/apt/sources.list.d/openjdk-ppa.list && \ 
-  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DA1A4A13543B466853BAF164EB9B1D8886F44E2A && \ 
+  add-apt-repository -y ppa:webupd8team/java && \ 
   apt-get update && \ 
-  apt-get install -y openjdk-8-jdk git subversion mercurial openssh-client bash unzip wget && \ 
+  apt-get install -y oracle-java8-installer git subversion mercurial openssh-client bash unzip wget && \ 
   apt-get autoclean && \
 # unzip the zip file into /go-agent, after stripping the first path prefix
   unzip /tmp/go-agent.zip -d / && \
@@ -60,7 +59,7 @@ RUN \
   unzip /tmp/apache-maven-3.5.0-bin.zip -d /tmp/ && \
   mv /tmp/apache-maven-3.5.0 /usr/lib/mvn
   
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-8-oracle
 ENV M2_HOME=/usr/lib/mvn
 ENV M2=$M2_HOME/bin
 ENV PATH=$PATH:$JAVA_HOME/bin:$M2_HOME:$M2
